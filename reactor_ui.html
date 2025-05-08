@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JARVIS Reactor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #b48cff;
+      --primary-glow: #b48cff44;
+      --secondary-color: #64ffda;
+      --secondary-glow: #64ffda44;
+      --accent-color: #ff56b1;
+      --accent-glow: #ff56b144;
+      --bg-dark: #0a0a14;
+      --bg-container: rgba(20,20,40,0.92);
+      --text-color: #fff;
+      --text-secondary: #b48cff;
+      --header-gradient: linear-gradient(90deg, #1a1030 0%, #2a1a50 100%);
+      --border-color: #b48cff33;
+      --shadow-color: #b48cff11;
+      --success-color: #64ffda;
+      --warning-color: #ffcc66;
+      --error-color: #ff5f5f;
+      --bg-container-base: 20,20,40;
+    }
+
+    [data-theme="light"] {
+      --primary-color: #7000aa;
+      --primary-glow: #7000aa44;
+      --secondary-color: #00aa88;
+      --secondary-glow: #00aa8844;
+      --accent-color: #e6007e;
+      --accent-glow: #e6007e44;
+      --bg-dark: #f0f0f8;
+      --bg-container: rgba(240,240,248,0.92);
+      --text-color: #1a1030;
+      --text-secondary: #7000aa;
+      --header-gradient: linear-gradient(90deg, #e0e0f0 0%, #d0d0e8 100%);
+      --border-color: #7000aa33;
+      --shadow-color: #7000aa11;
+      --success-color: #00aa88;
+      --warning-color: #cc9900;
+      --error-color: #dd3333;
+      --bg-container-base: 240,240,248;
+    }
+    
+    [data-theme="neon"] {
+      --primary-color: #0cff83;
+      --primary-glow: #0cff8366;
+      --secondary-color: #00f6ff;
+      --secondary-glow: #00f6ff66;
+      --accent-color: #fe53bb;
+      --accent-glow: #fe53bb66;
+      --bg-dark: #09090b;
+      --bg-container: rgba(15,15,20,0.95);
+      --text-color: #ffffff;
+      --text-secondary: #0cff83;
+      --header-gradient: linear-gradient(90deg, #050711 0%, #0a0d17 100%);
+      --border-color: #0cff8333;
+      --shadow-color: #0cff8322;
+      --success-color: #0cff83;
+      --warning-color: #ffef6f;
+      --error-color: #ff2b59;
+      --bg-container-base: 15,15,20;
+    }
+    
+    [data-theme="midnight"] {
+      --primary-color: #5c9eff;
+      --primary-glow: #5c9eff66;
+      --secondary-color: #9d9bff;
+      --secondary-glow: #9d9bff66;
+      --accent-color: #ff7cb6;
+      --accent-glow: #ff7cb666;
+      --bg-dark: #080b16;
+      --bg-container: rgba(12,18,32,0.95);
+      --text-color: #eef1ff;
+      --text-secondary: #5c9eff;
+      --header-gradient: linear-gradient(90deg, #0a1022 0%, #141b33 100%);
+      --border-color: #5c9eff33;
+      --shadow-color: #5c9eff22;
+      --success-color: #5effbf;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 12,18,32;
+    }
+    
+    [data-theme="matrix"] {
+      --primary-color: #00ff41;
+      --primary-glow: #00ff4166;
+      --secondary-color: #96ff00;
+      --secondary-glow: #96ff0066;
+      --accent-color: #d2ff28;
+      --accent-glow: #d2ff2866;
+      --bg-dark: #0d0d0d;
+      --bg-container: rgba(10,15,10,0.95);
+      --text-color: #ddffd2;
+      --text-secondary: #00ff41;
+      --header-gradient: linear-gradient(90deg, #0a1200 0%, #132000 100%);
+      --border-color: #00ff4133;
+      --shadow-color: #00ff4122;
+      --success-color: #00ff41;
+      --warning-color: #fffc58;
+      --error-color: #ff3434;
+      --bg-container-base: 10,15,10;
+    }
+
+    [data-theme="sunset"] {
+      --primary-color: #ff7e5f;
+      --primary-glow: #ff7e5f55;
+      --secondary-color: #feb47b;
+      --secondary-glow: #feb47b55;
+      --accent-color: #ffb347;
+      --accent-glow: #ffb34755;
+      --bg-dark: #2c1a1a;
+      --bg-container: rgba(44,26,26,0.92);
+      --text-color: #fff3e0;
+      --text-secondary: #ff7e5f;
+      --header-gradient: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
+      --border-color: #ff7e5f33;
+      --shadow-color: #ff7e5f22;
+      --success-color: #feb47b;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 44,26,26;
+    }
+    [data-theme="aurora"] {
+      --primary-color: #00ffd0;
+      --primary-glow: #00ffd055;
+      --secondary-color: #00aaff;
+      --secondary-glow: #00aaff55;
+      --accent-color: #ff00e0;
+      --accent-glow: #ff00e055;
+      --bg-dark: #0a1a2f;
+      --bg-container: rgba(10,26,47,0.92);
+      --text-color: #e0f7fa;
+      --text-secondary: #00ffd0;
+      --header-gradient: linear-gradient(90deg, #00ffd0 0%, #00aaff 100%);
+      --border-color: #00ffd033;
+      --shadow-color: #00ffd022;
+      --success-color: #00ffd0;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 10,26,47;
+    }
+    [data-theme="ocean"] {
+      --primary-color: #0099ff;
+      --primary-glow: #0099ff55;
+      --secondary-color: #00eaff;
+      --secondary-glow: #00eaff55;
+      --accent-color: #0055ff;
+      --accent-glow: #0055ff55;
+      --bg-dark: #0a1a2f;
+      --bg-container: rgba(10,26,47,0.92);
+      --text-color: #e0f7fa;
+      --text-secondary: #0099ff;
+      --header-gradient: linear-gradient(90deg, #0099ff 0%, #00eaff 100%);
+      --border-color: #0099ff33;
+      --shadow-color: #0099ff22;
+      --success-color: #00eaff;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 10,26,47;
+    }
+    [data-theme="fire"] {
+      --primary-color: #ff512f;
+      --primary-glow: #ff512f55;
+      --secondary-color: #ff9966;
+      --secondary-glow: #ff996655;
+      --accent-color: #ffb347;
+      --accent-glow: #ffb34755;
+      --bg-dark: #2c1a1a;
+      --bg-container: rgba(44,26,26,0.92);
+      --text-color: #fff3e0;
+      --text-secondary: #ff512f;
+      --header-gradient: linear-gradient(90deg, #ff512f 0%, #ff9966 100%);
+      --border-color: #ff512f33;
+      --shadow-color: #ff512f22;
+      --success-color: #ffb347;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 44,26,26;
+    }
+    [data-theme="emerald"] {
+      --primary-color: #00ff99;
+      --primary-glow: #00ff9955;
+      --secondary-color: #00ffcc;
+      --secondary-glow: #00ffcc55;
+      --accent-color: #00b86b;
+      --accent-glow: #00b86b55;
+      --bg-dark: #0a2f1a;
+      --bg-container: rgba(10,47,26,0.92);
+      --text-color: #e0fff3;
+      --text-secondary: #00ff99;
+      --header-gradient: linear-gradient(90deg, #00ff99 0%, #00ffcc 100%);
+      --border-color: #00ff9933;
+      --shadow-color: #00ff9922;
+      --success-color: #00ffcc;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 10,47,26;
+    }
+    [data-theme="gold"] {
+      --primary-color: #ffd700;
+      --primary-glow: #ffd70055;
+      --secondary-color: #fff8dc;
+      --secondary-glow: #fff8dc55;
+      --accent-color: #ffb700;
+      --accent-glow: #ffb70055;
+      --bg-dark: #2f260a;
+      --bg-container: rgba(47,38,10,0.92);
+      --text-color: #fffbe0;
+      --text-secondary: #ffd700;
+      --header-gradient: linear-gradient(90deg, #ffd700 0%, #ffb700 100%);
+      --border-color: #ffd70033;
+      --shadow-color: #ffd70022;
+      --success-color: #ffd700;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 47,38,10;
+    }
+    [data-theme="ice"] {
+      --primary-color: #00eaff;
+      --primary-glow: #00eaff55;
+      --secondary-color: #b4f0ff;
+      --secondary-glow: #b4f0ff55;
+      --accent-color: #00bfff;
+      --accent-glow: #00bfff55;
+      --bg-dark: #e0f7fa;
+      --bg-container: rgba(224,247,250,0.92);
+      --text-color: #0a1a2f;
+      --text-secondary: #00eaff;
+      --header-gradient: linear-gradient(90deg, #00eaff 0%, #b4f0ff 100%);
+      --border-color: #00eaff33;
+      --shadow-color: #00eaff22;
+      --success-color: #00eaff;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 224,247,250;
+    }
+    [data-theme="retro"] {
+      --primary-color: #ff00cc;
+      --primary-glow: #ff00cc55;
+      --secondary-color: #00fff7;
+      --secondary-glow: #00fff755;
+      --accent-color: #ffe600;
+      --accent-glow: #ffe60055;
+      --bg-dark: #1a002f;
+      --bg-container: rgba(26,0,47,0.92);
+      --text-color: #fff0f7;
+      --text-secondary: #ff00cc;
+      --header-gradient: linear-gradient(90deg, #ff00cc 0%, #00fff7 100%);
+      --border-color: #ff00cc33;
+      --shadow-color: #ff00cc22;
+      --success-color: #00fff7;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 26,0,47;
+    }
+    [data-theme="violet"] {
+      --primary-color: #a259ff;
+      --primary-glow: #a259ff55;
+      --secondary-color: #faff00;
+      --secondary-glow: #faff0055;
+      --accent-color: #ff61a6;
+      --accent-glow: #ff61a655;
+      --bg-dark: #2f1a47;
+      --bg-container: rgba(47,26,71,0.92);
+      --text-color: #f3e0ff;
+      --text-secondary: #a259ff;
+      --header-gradient: linear-gradient(90deg, #a259ff 0%, #faff00 100%);
+      --border-color: #a259ff33;
+      --shadow-color: #a259ff22;
+      --success-color: #faff00;
+      --warning-color: #ffd166;
+      --error-color: #ff6b74;
+      --bg-container-base: 47,26,71;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      font-family: 'Orbitron', 'Rajdhani', 'Segoe UI', Arial, sans-serif;
+      color: var(--text-color);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(10, 10, 30, 0.8) 0%, transparent 80%),
+        radial-gradient(circle at 80% 80%, rgba(20, 20, 50, 0.6) 0%, transparent 80%),
+        radial-gradient(circle at 50% 50%, rgba(var(--primary-color), 0.05) 0%, transparent 100%);
+    }
+
+    .app-container {
+      margin-left: 80px;
+      width: calc(100vw - 80px);
+      height: 100vh;
+      min-width: calc(100vw - 80px);
+      min-height: 100vh;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      left: 0;
+      top: 0;
+      transform: none;
+    }
+
+    .header, .tabs, .footer, .tab-panel:not(.active), #tab-commands, #tab-history {
+      display: none !important;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      min-height: 0;
+      min-width: 0;
+      background: transparent;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .tab-panel.active {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      background: transparent;
+      box-sizing: border-box;
+      padding: 0;
+      min-height: 0;
+    }
+
+    .reactor-center, .reactor-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      min-height: 0;
+      min-width: 0;
+      background: transparent;
+      box-sizing: border-box;
+    }
+
+    .reactor-visual {
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-color);
+      letter-spacing: 3px;
+      text-shadow: 0 0 12px var(--primary-color), 0 0 24px var(--primary-glow);
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.3s;
+    }
+
+    .logo i {
+      font-size: 1.9rem;
+      color: var(--primary-color);
+      filter: drop-shadow(0 0 8px var(--primary-glow));
+    }
+    
+    .logo:hover {
+      transform: scale(1.02);
+      text-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--primary-glow);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 16px;
+      background: rgba(0,0,0,0.2);
+      padding: 8px;
+      border-radius: 24px;
+      box-shadow: 0 4px 15px -5px rgba(0,0,0,0.3), inset 0 0 0 1px var(--border-color);
+      z-index: 6;
+      position: relative;
+    }
+
+    .tab {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      background: rgba(0,0,0,0.1);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--border-color);
+    }
+
+    .tab i {
+      font-size: 1.5rem;
+      color: #fff !important;
+      filter: drop-shadow(0 0 4px var(--primary-glow));
+      transition: all 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tab::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+      z-index: 1;
+    }
+
+    .tab.active::before, .tab:hover::before {
+      width: 200%;
+      height: 200%;
+    }
+
+    .tab.active, .tab:hover {
+      color: var(--text-color);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px -3px var(--shadow-color), 0 0 0 1px var(--primary-color);
+    }
+
+    .tab.active i, .tab:hover i {
+      color: #fff !important;
+      filter: drop-shadow(0 0 8px var(--primary-color));
+      transform: scale(1.2);
+    }
+
+    .tab[title] {
+      position: relative;
+    }
+
+    .tab[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-container);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 0 0 1px var(--border-color);
+      z-index: 100;
+    }
+
+    .footer {
+      position: relative;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      background: var(--header-gradient);
+      border-top: 1.5px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 -2px 16px 0 var(--shadow-color);
+      min-height: 40px;
+      height: 56px;
+      box-sizing: border-box;
+    }
+
+    .footer .actions {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer .action-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .footer .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+      z-index: 1;
+    }
+    
+    .footer .action-btn:hover::before {
+      width: 150%;
+      height: 150%;
+    }
+    
+    .footer .action-btn i {
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer .action-btn:hover {
+      background: var(--primary-glow);
+      color: var(--text-color);
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      max-width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--success-color);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px var(--success-color);
+      animation: pulse 2s infinite;
+    }
+    
+    @media (max-width: 700px) {
+      .status-indicator {
+        max-width: 30%;
+      }
+    }
+    
+    .version {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    .settings-group {
+      background: var(--bg-container);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px var(--shadow-color), inset 0 0 0 1px var(--border-color);
+      transition: all 0.3s ease;
+    }
+    
+    .settings-group:hover {
+      box-shadow: 0 0 25px var(--shadow-color), inset 0 0 0 1px var(--primary-color);
+    }
+
+    .settings-group h3 {
+      color: var(--text-secondary);
+      margin: 0 0 16px 0;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .settings-group h3 i {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      filter: drop-shadow(0 0 5px var(--primary-glow));
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .settings-row label {
+      min-width: 180px;
+      color: var(--text-color);
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    select, input[type="text"], input[type="number"] {
+      background: var(--bg-container);
+      color: var(--text-color);
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 38px 10px 14px;
+      font-family: inherit;
+      min-width: 200px;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: 0 2px 12px 0 var(--shadow-color);
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      position: relative;
+    }
+    select:focus, select:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 12px var(--primary-glow), 0 2px 12px 0 var(--shadow-color);
+    }
+    select.theme-select {
+      min-width: 150px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23b48cff" width="18px" height="18px"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 22px 22px;
+      padding-right: 38px;
+    }
+    select::-ms-expand {
+      display: none;
+    }
+    select option {
+      background: var(--bg-container);
+      color: var(--text-color);
+      border-radius: 0;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 8px 14px;
+    }
+    @media (max-width: 900px) {
+      select, input[type="text"], input[type="number"] {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+    
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 200px;
+      height: 8px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      outline: none;
+      border: 1px solid var(--border-color);
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--primary-glow);
+      transition: all 0.2s;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+    
+    .range-value {
+      min-width: 45px;
+      text-align: right;
+      color: var(--text-secondary);
+    }
+    
+    .number-input {
+      width: 80px;
+      text-align: center;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-switch label {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.3);
+      transition: 0.4s;
+      border-radius: 34px;
+      min-width: 0 !important;
+      border: 1px solid var(--border-color);
+    }
+    
+    .toggle-switch label:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 3px;
+      background-color: var(--text-color);
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    
+    .toggle-switch input:checked + label {
+      background-color: var(--primary-color);
+    }
+    
+    .toggle-switch input:checked + label:before {
+      transform: translateX(28px);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .size-btn {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .size-btn.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+    
+    .size-btn:hover:not(.active) {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+    
+    .actions-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    
+    .action-button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    
+    .action-button.primary {
+      background: var(--primary-color);
+      color: var(--text-color);
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+    
+    .action-button.secondary {
+      background: rgba(0,0,0,0.2);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+    
+    .action-button:hover {
+      transform: translateY(-2px);
+    }
+    
+    .action-button.primary:hover {
+      box-shadow: 0 8px 20px var(--primary-glow);
+    }
+    
+    .action-button.secondary:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 12px var(--shadow-color);
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .history-item i {
+      color: var(--primary-color);
+    }
+
+    .about-section {
+      color: var(--text-color);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .about-section b {
+      color: var(--primary-color);
+    }
+
+    .about-section a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .about-section a:hover {
+      text-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    @media (max-width: 900px) {
+      .app-container {
+        width: 99vw;
+        height: 99vh;
+        min-width: 0;
+        min-height: 0;
+        border-radius: 18px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-container {
+        width: 100vw;
+        height: 100vh;
+        min-width: 0;
+        min-height: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .header, .footer {
+        padding: 0 16px;
+        height: 40px;
+      }
+      .logo { font-size: 1.2rem; }
+      .tabs { gap: 4px; }
+      .tab { font-size: 0.9rem; padding: 4px 8px; }
+    }
+
+    .reactor-visual {
+      width: 520px;
+      height: 520px;
+      max-width: 98vw;
+      max-height: 60vw;
+      min-width: 260px;
+      min-height: 260px;
+      position: relative;
+      transition: transform 0.5s ease-in-out;
+      animation: pulse 3.5s infinite cubic-bezier(.4,0,.6,1) alternate;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    .reactor-visual.active {
+      animation: activePulse 1.5s infinite cubic-bezier(.4,0,.6,1);
+    }
+    @keyframes activePulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.05); filter: brightness(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.02); filter: brightness(1.1); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+    .status {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      margin-top: 16px;
+      text-align: center;
+      min-height: 24px;
+      transition: color 0.3s;
+    }
+    .status.active {
+      color: var(--text-color);
+      text-shadow: 0 0 8px var(--primary-color);
+    }
+
+    .listen-status {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 8px;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    .icon-panel {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      background: rgba(0,0,0,0.2);
+      padding: 16px;
+      border-radius: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2), inset 0 0 0 1px var(--border-color);
+      transform: translateY(0);
+      opacity: 1;
+      transition: all 0.4s ease;
+    }
+    
+    .icon-panel.hidden {
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .icon-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.3);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--border-color);
+    }
+    
+    .icon-btn i {
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+    
+    .icon-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+      z-index: 1;
+    }
+    
+    .icon-btn:hover::before {
+      width: 150%;
+      height: 150%;
+    }
+    
+    .icon-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 15px var(--shadow-color), 0 0 0 1px var(--primary-color);
+    }
+    
+    .icon-btn:hover i {
+      color: var(--primary-color);
+      transform: scale(1.2);
+    }
+    
+    .icon-btn[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-container);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 0 0 1px var(--border-color);
+      z-index: 100;
+    }
+    
+    @keyframes activePulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.08); filter: brightness(1.3); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.03); filter: brightness(1.15); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    /* CSS для отключения анимаций */
+    .no-animations * {
+      animation: none !important;
+      transition: none !important;
+    }
+    
+    .no-animations .reactor-visual,
+    .no-animations .reactor-visual.active {
+      animation: none !important;
+    }
+
+    /* Стили для скролла */
+    .tab-panel::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    .tab-panel::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+    
+    .tab-panel::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 5px;
+      opacity: 0.7;
+    }
+    
+    .tab-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-color);
+      opacity: 1;
+    }
+    
+    /* Стили для улучшения удобства настроек на мобильных устройствах */
+    @media (max-width: 900px) {
+      .settings-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-bottom: 12px;
+      }
+      
+      .settings-row label {
+        min-width: 100%;
+      }
+      
+      .custom-range {
+        width: 100%;
+      }
+      
+      select, input[type="text"], input[type="number"] {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .button-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* Стиль поля ввода команд */
+    .command-input {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      max-width: 500px;
+      margin-top: 32px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 30px;
+      padding: 4px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 0 0 1px var(--border-color);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .command-input:focus-within {
+      box-shadow: 0 4px 20px var(--primary-glow), inset 0 0 0 1px var(--primary-color);
+    }
+    
+    .command-input input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-color);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      padding: 12px 20px;
+      outline: none;
+      width: 100%;
+    }
+    
+    .command-input button {
+      background: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-right: 2px;
+    }
+    
+    .command-input button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* Стили для раздела команд */
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .command-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      height: 110px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .command-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+      z-index: 1;
+    }
+    
+    .command-card:hover::before {
+      width: 300%;
+      height: 300%;
+    }
+    
+    .command-card i {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+    
+    .command-card span {
+      color: var(--text-color);
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+    
+    .command-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px var(--shadow-color), 0 0 0 1px var(--primary-color);
+    }
+    
+    .command-card:hover i {
+      transform: scale(1.1);
+      color: var(--text-color);
+    }
+    
+    .quick-commands {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .quick-command-btn {
+      background: rgba(0,0,0,0.15);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .quick-command-btn:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 12px var(--primary-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Обновляем стили для sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 80px;
+      height: 100vh;
+      background: rgba(20, 20, 40, 0.72);
+      box-shadow: 2px 0 24px 0 var(--shadow-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+      z-index: 100;
+      gap: 16px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border-color);
+    }
+
+    .sidebar-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+      margin: 4px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar-btn i {
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-btn:hover {
+      background: var(--primary-glow);
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .sidebar-btn:hover i {
+      color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    .sidebar-btn.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      color: var(--text-color);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .sidebar-btn.active i {
+      color: var(--text-color);
+    }
+
+    .sidebar-btn[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      left: 110%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: var(--text-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 700px) {
+      .sidebar { 
+        width: 60px; 
+      }
+      .sidebar-btn { 
+        width: 44px; 
+        height: 44px; 
+        font-size: 1.2rem; 
+      }
+    }
+
+    .crypto-panel {
+      width: 520px;
+      max-width: 96vw;
+      margin: 0 auto;
+      background: rgba(20, 20, 40, 0.92);
+      border-radius: 32px;
+      box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 1.5px var(--primary-glow);
+      padding: 36px 32px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border-color);
+      animation: fadeIn 0.7s cubic-bezier(.4,0,.6,1);
+    }
+    .crypto-title {
+      color: var(--primary-color);
+      font-family: 'Orbitron', 'Rajdhani', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #cryptoChart {
+      background: rgba(10,10,20,0.7);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px 0 var(--shadow-color);
+      margin-bottom: 12px;
+      width: 100%;
+      max-width: 420px;
+      height: 260px;
+      display: block;
+    }
+    .crypto-info {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-top: 8px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <button class="sidebar-btn active" data-tab="main" title="Главная">
+      <i class="fas fa-atom"></i>
+    </button>
+    <button class="sidebar-btn" data-tab="settings" title="Настройки">
+      <i class="fas fa-cog"></i>
+    </button>
+    <button class="sidebar-btn" data-tab="about" title="О программе">
+      <i class="fas fa-info-circle"></i>
+    </button>
+    <button class="sidebar-btn" data-tab="crypto" title="Криптографики">
+      <i class="fas fa-chart-line"></i>
+    </button>
+  </div>
+  <div class="app-container">
+    <div class="header">
+      <div class="logo">
+        <i class="fas fa-robot"></i>
+        JARVIS
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="main" title="Главная">
+          <i class="fas fa-home"></i>
+        </button>
+        <button class="tab" data-tab="commands" title="Команды">
+          <i class="fas fa-terminal"></i>
+        </button>
+        <button class="tab" data-tab="history" title="История">
+          <i class="fas fa-history"></i>
+        </button>
+        <button class="tab" data-tab="settings" title="Настройки">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button class="tab" data-tab="about" title="О программе">
+          <i class="fas fa-info-circle"></i>
+        </button>
+      </div>
+    </div>
+    <div class="main-content">
+      <!-- Главная -->
+      <div class="tab-panel active" id="tab-main">
+        <div class="reactor-center">
+          <div class="reactor-container">
+            <div class="reactor-visual" id="reactorVisual">
+              <svg id="reactorSVG" width="100%" height="100%" viewBox="0 0 520 520" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+                    <stop offset="40%" stop-color="var(--primary-color)" stop-opacity="0.7"/>
+                    <stop offset="70%" stop-color="var(--primary-color)" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="var(--primary-color)" stop-opacity="0"/>
+                  </radialGradient>
+                  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="18" result="blur"/>
+                  </filter>
+                  <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#fff" stop-opacity="0.7"/>
+                    <stop offset="100%" stop-color="var(--primary-color)" stop-opacity="0.9"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="260" cy="260" r="140" fill="url(#coreGlow)" filter="url(#blur)"/>
+                <g id="rings"></g>
+                <g id="arcs"></g>
+                <circle cx="260" cy="260" r="90" fill="var(--text-color)" fill-opacity="0.92"/>
+                <g id="dots"></g>
+              </svg>
+            </div>
+            <div class="status" id="status">Ожидаю активации...</div>
+            <div class="listen-status">Скажите "Джарвис", чтобы активировать</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Команды -->
+      <div class="tab-panel" id="tab-commands">
+        <iframe src="custom_commands_ui.html" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+      
+      <!-- История -->
+      <div class="tab-panel" id="tab-history">
+        <div class="settings-group">
+          <h3><i class="fas fa-history"></i> История команд</h3>
+          <ul id="historyList" style="list-style:none;padding:0;margin:0;"></ul>
+        </div>
+      </div>
+      <!-- Настройки -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="settings-group">
+          <h3><i class="fas fa-microphone"></i> Аудио</h3>
+          <div class="settings-row">
+            <label>Микрофон:</label>
+            <select id="micSelect"></select>
+          </div>
+          <div class="settings-row">
+            <label>Громкость:</label>
+            <input type="range" min="0" max="100" value="80" id="volumeRange" class="custom-range">
+            <span class="range-value" id="volumeValue">80%</span>
+          </div>
+        </div>
+        
+        <div class="settings-group">
+          <h3><i class="fas fa-palette"></i> Внешний вид</h3>
+          <div class="settings-row">
+            <label>Тема:</label>
+            <select id="themeSelect" class="theme-select">
+              <option value="dark">Киберпанк</option>
+              <option value="neon">Неон</option>
+              <option value="midnight">Полночь</option>
+              <option value="matrix">Матрица</option>
+              <option value="light">Светлая</option>
+              <option value="sunset">Закат</option>
+              <option value="aurora">Северное сияние</option>
+              <option value="ocean">Океан</option>
+              <option value="fire">Огонь</option>
+              <option value="emerald">Изумруд</option>
+              <option value="gold">Золото</option>
+              <option value="ice">Лёд</option>
+              <option value="retro">Ретро</option>
+              <option value="violet">Фиолет</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <label>Анимация:</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableAnimation" checked>
+              <label for="enableAnimation"></label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="actions-row">
+          <button class="action-button secondary" onclick="resetSettings()">
+            <i class="fas fa-undo"></i>
+            Сбросить
+          </button>
+          <button class="action-button primary" onclick="saveSettings()">
+            <i class="fas fa-save"></i>
+            Сохранить
+          </button>
+        </div>
+      </div>
+      <!-- О программе -->
+      <div class="tab-panel" id="tab-about">
+        <div class="settings-group">
+          <h3><i class="fas fa-info-circle"></i> О программе</h3>
+          <div class="about-section">
+            <b>JARVIS</b> — голосовой ассистент для ПК с кибер-интерфейсом.<br>
+            <br>
+            <b>Версия:</b> 3.0<br>
+            <b>Автор:</b> bunny & AI<br>
+            <br>
+            <b>Возможности:</b><br>
+            <i class="fas fa-microphone"></i> Распознавание голоса<br>
+            <i class="fas fa-terminal"></i> Выполнение команд<br>
+            <i class="fas fa-atom"></i> Красивая визуализация реактора<br>
+            <i class="fas fa-sliders-h"></i> Гибкие настройки<br>
+            <i class="fas fa-palette"></i> Поддержка тем оформления<br>
+          </div>
+        </div>
+      </div>
+      <!-- Криптографики -->
+      <div class="tab-panel" id="tab-crypto">
+        <div class="crypto-panel">
+          <h2 class="crypto-title"><i class="fas fa-coins"></i> Курс криптовалют</h2>
+          <canvas id="cryptoChart" width="420" height="260"></canvas>
+          <div class="crypto-info" id="cryptoInfo"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="actions">
+        <button class="action-btn" title="Справка" onclick="showHelp()">
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="action-btn" title="Перезапустить" onclick="window.location.reload()">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="action-btn" title="Полный экран" onclick="toggleFullScreen()">
+          <i class="fas fa-expand"></i>
+        </button>
+        <button class="action-btn" title="Настройки" onclick="openTab('settings')">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="footerStatus">Готов к работе</span>
+      </div>
+      <div class="version">v3.1</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <script>
+    // Theme switching
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      
+      // Обновляем цвета SVG в зависимости от темы
+      document.querySelectorAll('[fill="var(--primary-color)"]').forEach(el => {
+        el.setAttribute('fill', getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim());
+      });
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    document.getElementById('themeSelect').value = savedTheme;
+
+    // Theme change handler
+    document.getElementById('themeSelect').addEventListener('change', (e) => {
+      setTheme(e.target.value);
+    });
+    
+    // Инициализация элементов управления
+    function initControls() {
+      // Инициализация диапазона громкости
+      const volumeRange = document.getElementById('volumeRange');
+      const volumeValue = document.getElementById('volumeValue');
+      if (volumeRange && volumeValue) {
+        volumeValue.textContent = volumeRange.value + '%';
+        volumeRange.addEventListener('input', () => {
+          volumeValue.textContent = volumeRange.value + '%';
+          // Применяем громкость (имитация)
+          console.log('Установлена громкость: ' + volumeRange.value + '%');
+        });
+      }
+      
+      // Инициализация переключателя анимации
+      const enableAnimation = document.getElementById('enableAnimation');
+      if (enableAnimation) {
+        enableAnimation.addEventListener('change', () => {
+          document.body.classList.toggle('no-animations', !enableAnimation.checked);
+          console.log('Анимация ' + (enableAnimation.checked ? 'включена' : 'выключена'));
+        });
+      }
+    }
+
+    // Save settings
+    function saveSettings() {
+      const theme = document.getElementById('themeSelect').value;
+      const volume = document.getElementById('volumeRange').value;
+      const mic = document.getElementById('micSelect').value;
+      const enableAnimation = document.getElementById('enableAnimation').checked;
+      
+      // Сохраняем настройки
+      localStorage.setItem('theme', theme);
+      localStorage.setItem('volume', volume);
+      localStorage.setItem('mic', mic);
+      localStorage.setItem('enableAnimation', enableAnimation);
+      
+      // Show success message
+      const status = document.getElementById('footerStatus');
+      status.textContent = 'Настройки сохранены';
+      status.style.color = 'var(--success-color)';
+      setTimeout(() => {
+        status.textContent = 'Готов к работе';
+        status.style.color = '';
+      }, 3000);
+    }
+    
+    // Reset settings
+    function resetSettings() {
+      // Сбрасываем до значений по умолчанию
+      document.getElementById('themeSelect').value = 'dark';
+      document.getElementById('volumeRange').value = 80;
+      document.getElementById('enableAnimation').checked = true;
+      
+      // Обновляем отображение значений
+      document.getElementById('volumeValue').textContent = '80%';
+      
+      // Применяем тему
+      setTheme('dark');
+      
+      // Show success message
+      const status = document.getElementById('footerStatus');
+      status.textContent = 'Настройки сброшены';
+      status.style.color = 'var(--warning-color)';
+      setTimeout(() => {
+        status.textContent = 'Готов к работе';
+        status.style.color = '';
+      }, 3000);
+    }
+
+    // Show help
+    function showHelp() {
+      alert('Скажите \'Джарвис\' для активации. После активации можно давать команды. Для остановки скажите: \'отдыхай\', \'перестань слушать\' и т.д.');
+    }
+
+    // History item template
+    function createHistoryItem(text) {
+      const li = document.createElement('li');
+      li.className = 'history-item';
+      li.innerHTML = `
+        <i class="fas fa-terminal"></i>
+        <span>${text}</span>
+      `;
+      return li;
+    }
+
+    // Add history item
+    window.addHistory = function(cmd) {
+      const ul = document.getElementById('historyList');
+      const li = createHistoryItem(cmd);
+      ul.insertBefore(li, ul.firstChild);
+      if (ul.children.length > 30) ul.removeChild(ul.lastChild);
+    };
+
+    // Status update
+    window.setStatus = function(status, command, active) {
+      if (!window.isReady) return;
+      const statusDiv = document.getElementById('status');
+      const footerStatus = document.getElementById('footerStatus');
+      const reactorVisual = document.getElementById('reactorVisual');
+      const listenStatus = document.querySelector('.listen-status');
+      
+      if (statusDiv) {
+        statusDiv.textContent = status;
+        statusDiv.className = active ? 'status active' : 'status';
+      }
+      
+      // Обновляем статус в футере только при выполнении команд, не для статусных сообщений
+      if (footerStatus && command) {
+        footerStatus.textContent = status;
+      }
+      
+      if (reactorVisual) {
+        reactorVisual.className = active ? 'reactor-visual active' : 'reactor-visual';
+      }
+      
+      if (listenStatus) {
+        if (active) {
+          listenStatus.textContent = 'Jarvis слушает...';
+        } else {
+          listenStatus.textContent = 'Скажите "Джарвис", чтобы активировать';
+        }
+      }
+      
+      // Добавляем в историю только настоящие команды, а не статусы активации
+      if (command && window.addHistory && command !== 'Джарвис') {
+        window.addHistory(command);
+      }
+    };
+
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.tab-panel');
+    
+    function updatePanels() {
+      panels.forEach(p => p.style.display = 'none');
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab) {
+        const id = 'tab-' + activeTab.dataset.tab;
+        const panel = document.getElementById(id);
+        if (panel) panel.style.display = 'block';
+      }
+    }
+    
+    function openTab(tabName) {
+      // Обновляем активную кнопку в sidebar
+      const sidebarBtns = document.querySelectorAll('.sidebar-btn');
+      sidebarBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tab === tabName) {
+          btn.classList.add('active');
+        }
+      });
+
+      // Обновляем активную вкладку
+      const panels = document.querySelectorAll('.tab-panel');
+      panels.forEach(panel => {
+        panel.classList.remove('active');
+        if (panel.id === `tab-${tabName}`) {
+          panel.classList.add('active');
+        }
+      });
+
+      // Обновляем отображение панелей
+      updatePanels();
+    }
+
+    // Инициализация обработчиков для sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarBtns = document.querySelectorAll('.sidebar-btn');
+      sidebarBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          openTab(btn.dataset.tab);
+        });
+      });
+    });
+
+    // Initialize
+    window.isReady = false;
+    window.onload = function() {
+      window.isReady = true;
+      updatePanels();
+      initControls();
+      initializeMicrophones();
+      
+      // Загружаем сохраненные настройки
+      const savedAnimation = localStorage.getItem('enableAnimation');
+      if (savedAnimation !== null) {
+        document.getElementById('enableAnimation').checked = savedAnimation === 'true';
+        document.body.classList.toggle('no-animations', savedAnimation !== 'true');
+      }
+      
+      // Восстанавливаем значение громкости
+      const savedVolume = localStorage.getItem('volume');
+      if (savedVolume) {
+        document.getElementById('volumeRange').value = savedVolume;
+        document.getElementById('volumeValue').textContent = savedVolume + '%';
+      }
+      
+      // Устанавливаем начальный статус
+      window.setStatus('Ожидаю активации...', null, false);
+    };
+
+    // Инициализация микрофонов
+    function initializeMicrophones() {
+      // Заполняем список микрофонов
+      const micSelect = document.getElementById('micSelect');
+      if (micSelect) {
+        // Очищаем текущие опции
+        micSelect.innerHTML = '';
+        
+        // Имитируем загрузку микрофонов
+        setTimeout(() => {
+          const options = [
+            { id: 'default', name: 'Микрофон по умолчанию' },
+            { id: 'mic1', name: 'Встроенный микрофон' },
+            { id: 'mic2', name: 'Внешний микрофон' }
+          ];
+          
+          options.forEach(mic => {
+            const option = document.createElement('option');
+            option.value = mic.id;
+            option.textContent = mic.name;
+            micSelect.appendChild(option);
+          });
+          
+          // Восстанавливаем сохраненный выбор
+          const savedMic = localStorage.getItem('mic');
+          if (savedMic) {
+            micSelect.value = savedMic;
+          }
+          
+          // Добавляем обработчик событий
+          micSelect.addEventListener('change', () => {
+            console.log('Выбран микрофон: ' + micSelect.options[micSelect.selectedIndex].text);
+            window.setStatus('Микрофон изменен', null, true);
+            setTimeout(() => {
+              window.setStatus('Ожидаю активации...', null, false);
+            }, 2000);
+          });
+        }, 500);
+      }
+    }
+
+    // Reactor animation
+    const svg = document.getElementById('reactorSVG');
+    const ringsGroup = document.getElementById('rings');
+    const arcsGroup = document.getElementById('arcs');
+    const dotsGroup = document.getElementById('dots');
+    
+    const ringConfigs = [
+      { r: 200, w: 2.5, color: 'var(--primary-color)', alpha: 0.18, speed: 0.5 },
+      { r: 170, w: 2, color: 'var(--primary-color)', alpha: 0.25, speed: -0.3 },
+      { r: 130, w: 1.5, color: 'var(--text-color)', alpha: 0.10, speed: 0.15 }
+    ];
+    
+    const ringElems = [];
+    ringConfigs.forEach(cfg => {
+      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      ring.setAttribute('cx', 260);
+      ring.setAttribute('cy', 260);
+      ring.setAttribute('r', cfg.r);
+      ring.setAttribute('stroke', cfg.color);
+      ring.setAttribute('stroke-width', cfg.w);
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke-opacity', cfg.alpha);
+      ringsGroup.appendChild(ring);
+      ringElems.push({el: ring, speed: cfg.speed});
+    });
+
+    const arcCount = 5;
+    const arcElems = [];
+    for (let i = 0; i < arcCount; i++) {
+      const arc = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      arc.setAttribute('stroke', 'url(#arcGrad)');
+      arc.setAttribute('stroke-width', '7');
+      arc.setAttribute('stroke-linecap', 'round');
+      arc.setAttribute('fill', 'none');
+      arcsGroup.appendChild(arc);
+      arcElems.push(arc);
+    }
+
+    const dotCount = 18;
+    const dotElems = [];
+    for (let i = 0; i < dotCount; i++) {
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', 5 + Math.random() * 2);
+      dot.setAttribute('fill', 'var(--text-color)');
+      dot.setAttribute('fill-opacity', '0.7');
+      dotsGroup.appendChild(dot);
+      dotElems.push(dot);
+    }
+
+    let t = 0;
+    function animateReactor() {
+      t += 0.016;
+      
+      // Только анимируем, если анимация включена
+      if (!document.body.classList.contains('no-animations')) {
+        // Animate rings
+        ringElems.forEach((r, i) => {
+          r.el.setAttribute('transform', `rotate(${t * 60 * r.speed}, 260, 260)`);
+        });
+        
+        // Animate arcs
+        arcElems.forEach((arc, i) => {
+          const baseR = 155 + 18 * Math.sin(t + i);
+          const startA = t * (0.7 + i * 0.2) + i * 1.2;
+          const endA = startA + Math.PI / 2 + Math.sin(t + i) * 0.5;
+          const x1 = 260 + Math.cos(startA) * baseR;
+          const y1 = 260 + Math.sin(startA) * baseR;
+          const x2 = 260 + Math.cos(endA) * baseR;
+          const y2 = 260 + Math.sin(endA) * baseR;
+          const largeArc = endA - startA > Math.PI ? 1 : 0;
+          const d = `M ${x1} ${y1} A ${baseR} ${baseR} 0 ${largeArc} 1 ${x2} ${y2}`;
+          arc.setAttribute('d', d);
+          arc.setAttribute('stroke-opacity', 0.5 + 0.5 * Math.abs(Math.sin(t + i)));
+        });
+        
+        // Animate dots
+        dotElems.forEach((dot, i) => {
+          const angle = t * 0.7 + i * (2 * Math.PI / dotCount);
+          const r = 110 + 30 * Math.sin(t * 1.2 + i);
+          const x = 260 + Math.cos(angle) * r;
+          const y = 260 + Math.sin(angle) * r;
+          dot.setAttribute('cx', x);
+          dot.setAttribute('cy', y);
+          dot.setAttribute('fill-opacity', 0.5 + 0.5 * Math.abs(Math.sin(t + i * 0.7)));
+        });
+      }
+      
+      requestAnimationFrame(animateReactor);
+    }
+    
+    // Start animation
+    animateReactor();
+
+    // Функция переключения полноэкранного режима
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          alert(`Ошибка переключения в полноэкранный режим: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Функция для имитации выполнения команды
+    function simulateCommand(command) {
+      // Сначала активируем Jarvis
+      window.setStatus('Распознано: "Джарвис"', null, true);
+      
+      setTimeout(() => {
+        // Затем показываем распознанную команду и добавляем её в историю
+        window.setStatus(`Распознано: "${command}"`, command, true);
+      }, 1000);
+      
+      setTimeout(() => {
+        // Показываем, что команда выполняется
+        window.setStatus(`Выполняю: ${command}`, null, true);
+      }, 2000);
+      
+      setTimeout(() => {
+        // Возвращаемся в режим ожидания
+        window.setStatus('Ожидаю активации...', null, false);
+      }, 4000);
+    }
+
+    // Функция для имитации активации голосового помощника без выполнения команды
+    function simulateActivation() {
+      window.setStatus('Распознано: "Джарвис"', null, true);
+      
+      setTimeout(() => {
+        window.setStatus('Слушаю команду...', null, true);
+      }, 1000);
+      
+      setTimeout(() => {
+        window.setStatus('Ожидаю активации...', null, false);
+      }, 5000);
+    }
+
+    // Crypto tab: draw chart with real data from Binance API
+    let cryptoChart = null;
+    let cryptoChartData = {
+      labels: [],
+      datasets: [{
+        label: 'BTC/USDT',
+        data: [],
+        fill: true,
+        backgroundColor: null, // set in draw
+        borderColor: '#b48cff',
+        borderWidth: 3,
+        pointBackgroundColor: '#fff',
+        pointRadius: 5,
+        tension: 0.4,
+      }]
+    };
+
+    async function fetchCryptoData() {
+      try {
+        const url = 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=30';
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error('Network error');
+        const data = await resp.json();
+        cryptoChartData.labels = data.map(item => {
+          const d = new Date(item[0]);
+          return d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+        });
+        cryptoChartData.datasets[0].data = data.map(item => parseFloat(item[4]));
+        return data;
+      } catch (e) {
+        document.getElementById('cryptoInfo').innerHTML = '<span style="color:var(--error-color)">Нет данных по криптовалютам (нет сети или CORS)</span>';
+        cryptoChartData.labels = [];
+        cryptoChartData.datasets[0].data = [];
+        return null;
+      }
+    }
+
+    async function drawCryptoChart() {
+      const ctx = document.getElementById('cryptoChart').getContext('2d');
+      const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+      gradient.addColorStop(0, '#b48cffcc');
+      gradient.addColorStop(1, '#0a0a14cc');
+      cryptoChartData.datasets[0].backgroundColor = gradient;
+      if (cryptoChart) cryptoChart.destroy();
+      cryptoChart = new Chart(ctx, {
+        type: 'line',
+        data: cryptoChartData,
+        options: {
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1a1030',
+              titleColor: '#b48cff',
+              bodyColor: '#fff',
+              borderColor: '#b48cff',
+              borderWidth: 1,
+              padding: 12,
+              caretSize: 8,
+              cornerRadius: 8,
+              displayColors: false
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#b48cff', font: { family: 'Orbitron', size: 14 } }
+            },
+            y: {
+              grid: { color: '#b48cff22', borderDash: [4, 4] },
+              ticks: { color: '#fff', font: { family: 'Orbitron', size: 14 } }
+            }
+          },
+          responsive: false,
+          maintainAspectRatio: false
+        }
+      });
+      // Обновить инфо
+      const last = cryptoChartData.datasets[0].data.slice(-1)[0];
+      const prev = cryptoChartData.datasets[0].data.slice(-2)[0];
+      const diff = last && prev ? (last - prev) : 0;
+      const percent = last && prev ? (diff / prev * 100).toFixed(2) : '0.00';
+      document.getElementById('cryptoInfo').innerHTML = `<b>BTC/USDT</b>: ${last ? last.toLocaleString() : '-'} <span style="color:${diff>=0?'var(--success-color)':'var(--error-color)'}">(${diff>=0?'+':''}${percent}%)</span>`;
+    }
+
+    async function updateCryptoChart() {
+      await fetchCryptoData();
+      await drawCryptoChart();
+    }
+
+    let cryptoChartInterval = null;
+    function handleCryptoTab() {
+      const tab = document.getElementById('tab-crypto');
+      if (tab.style.display !== 'block') {
+        if (cryptoChartInterval) clearInterval(cryptoChartInterval);
+        return;
+      }
+      updateCryptoChart();
+      if (!cryptoChartInterval) {
+        cryptoChartInterval = setInterval(updateCryptoChart, 5000);
+      }
+    }
+    // Вызов при переключении вкладок
+    const origUpdatePanels = updatePanels;
+    updatePanels = function() {
+      origUpdatePanels();
+      handleCryptoTab();
+    }
+
+    // --- Drag window from anywhere ---
+    let dragActive = false;
+    let lastX = 0, lastY = 0;
+    let pyBridge = null;
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.qt && window.qt.webChannelTransport) {
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+          pyBridge = channel.objects.pyBridge;
+        });
+      }
+      document.body.addEventListener('mousedown', function(e) {
+        // Только левая кнопка и не по input/textarea/button
+        if (e.button !== 0) return;
+        if (e.target.closest('input, textarea, button, select, .command-input, .icon-btn, .sidebar-btn')) return;
+        dragActive = true;
+        lastX = e.screenX;
+        lastY = e.screenY;
+        document.body.style.userSelect = 'none';
+      });
+      document.body.addEventListener('mousemove', function(e) {
+        if (dragActive && pyBridge) {
+          const dx = e.screenX - lastX;
+          const dy = e.screenY - lastY;
+          if (dx !== 0 || dy !== 0) {
+            pyBridge.moveWindow(dx, dy);
+            lastX = e.screenX;
+            lastY = e.screenY;
+          }
+        }
+      });
+      document.body.addEventListener('mouseup', function(e) {
+        dragActive = false;
+        document.body.style.userSelect = '';
+      });
+    });
+  </script>
+</body>
+</html> 
